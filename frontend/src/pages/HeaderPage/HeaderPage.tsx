@@ -1,31 +1,49 @@
-import { Button, Menu } from '@mui/material'
-import { Search } from '@mui/icons-material'
-import { Menu as MenuIcon } from '@mui/icons-material'
-import { useState } from 'react'
+import { Button, Menu, MenuItem } from '@mui/material';
+import { Search } from '@mui/icons-material';
+import { Menu as MenuIcon } from '@mui/icons-material';
+import { useState } from 'react';
 import './HeaderPage.css';
+import { useNavigate } from 'react-router-dom'; // Thêm dòng này
 
 export const HeaderPage = () => {
-    const [count, setCount] = useState(0)
-  
-  const [openNavbar, setOpenNavbar] = useState(false);
   const [search, setSearch] = useState("");
-  const [SearchOpen, setSearchOpen] = useState(false);
-  return (
-    
-    <div className='header'>
-        <Button className='menuButton' onClick={() => console.log("Open Navbar")}> 
-          <MenuIcon size={24} /> 
-        </Button>
-        <h1>TocoToco</h1>
-        {SearchOpen && (
-          <input className="searchInput" placeholder="Tìm kiếm món ăn..." value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        )}
-        <Button className="searchButton" onClick={() => setSearchOpen(!SearchOpen)}>
-          <Search size={24} />
-        </Button>
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const navigate = useNavigate();
 
-        </div>
-  )
-}
+  const handleMenuOpen = (event: React.MouseEvent<HTMLButtonElement>) => { 
+    setAnchorEl(event.currentTarget);
+  };
+  
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleNavigate = (path: string) => {
+    navigate(path);
+    handleMenuClose();
+  };
+
+  return (
+    <div className='header'>
+      <Button className='menuButton' onClick={handleMenuOpen}> 
+        <MenuIcon fontSize={'medium'} /> 
+      </Button>
+      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
+        <MenuItem onClick={() => handleNavigate('./pages/OrderPage/OrderPage')}>Đặt hàng</MenuItem>
+        <MenuItem onClick={() => handleNavigate('/payment')}>Thanh toán</MenuItem>
+        <MenuItem onClick={() => handleNavigate('/about')}>Giới thiệu</MenuItem>
+      </Menu>
+      <h1>TocoToco</h1>
+      {searchOpen && (
+        <input className="searchInput" placeholder="Tìm kiếm món ăn..." value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      )}
+      <Button className="searchButton" onClick={() => setSearchOpen(!searchOpen)}>
+        <Search fontSize={'medium'} />
+      </Button>
+    </div>
+  );
+};
