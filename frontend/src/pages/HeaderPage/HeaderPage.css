@@ -1,0 +1,33 @@
+@import '@fontsource/roboto/300.css';
+@import '@fontsource/roboto/400.css';
+@import '@fontsource/roboto/500.css';
+@import '@fontsource/roboto/700.css';
+
+.header {
+    position: fixed; /* Giữ header cố định trên cùng */
+    top: 0; /* Đặt nó ở đỉnh trang */
+    left: 0;
+    width: 100%;
+    background: white; /* Đảm bảo có nền để dễ nhìn */
+    z-index: 1000; /* Đưa header lên trên cùng */
+    display: flex;
+    align-items: center; /* Căn giữa các item trong header */
+    justify-content: space-between;
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .menuButton, .searchButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+  }
+  
+  .searchInput {
+    flex: 1;
+    padding: 8px;
+    margin: "0 8px";
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }

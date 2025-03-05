@@ -1,0 +1,87 @@
+@import '@fontsource/roboto/300.css';
+@import '@fontsource/roboto/400.css';
+@import '@fontsource/roboto/500.css';
+@import '@fontsource/roboto/700.css';
+
+.orderPage {
+  padding: 16px;
+}
+
+.header {
+  position: fixed; /* Giữ header cố định trên cùng */
+  top: 0; /* Đặt nó ở đỉnh trang */
+  left: 0;
+  width: 100%;
+  background: white; /* Đảm bảo có nền để dễ nhìn */
+  z-index: 1000; /* Đưa header lên trên cùng */
+  display: flex;
+  align-items: center; /* Căn giữa các item trong header */
+  justify-content: space-between;
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+}
+
+.menuButton, .searchButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.searchInput {
+  flex: 1;
+  padding: 8px;
+  margin: "0 8px";
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.categoryList {
+  display: flex;
+  overflow-x: auto;
+  gap: 16px;
+  padding: 8px 0;
+  padding-top: 5px;
+}
+
+.categoryItem {
+  text-align: center;
+  cursor: pointer;
+}
+
+.categoryItem.active {
+  border-bottom: 2px solid black;
+}
+
+.categoryImage {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.foodList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  padding: 16px 0;
+}
+
+.foodItem {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px;
+  text-align: center;
+}
+
+.foodImage {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.foodName {
+  margin-top: 8px;
+  font-weight: bold;
+}
