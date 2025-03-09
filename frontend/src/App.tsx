@@ -1,7 +1,8 @@
 import './pages/HeaderPage/HeaderPage.css';
 import { HeaderPage } from './pages/HeaderPage/HeaderPage'
 import { OrderPage } from './pages/OrderPage/OrderPage';
-import FoodMenu from './pages/FoodManagementPage/FoodManagementPage';
+import { FoodManagementPage } from './pages/FoodManagementPage/FoodManagementPage';
+
 
 function App() {
   return (
@@ -9,7 +10,7 @@ function App() {
     {/* <HeaderPage/> */}
     <div className='container-main'>
       {/* <OrderPage/> */}
-      <FoodMenu/>
+      <FoodManagementPage/>
     </div>
     </>
   )
