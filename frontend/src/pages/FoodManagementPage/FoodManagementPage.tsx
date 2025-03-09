@@ -6,6 +6,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 // import { foodItem } from '../OrderPage/OrderPage';
 import "./FoodManagementPage.css";
+import { HeaderPage } from "../HeaderPage/HeaderPage";
 
 
 type foodItem = {
@@ -51,18 +52,8 @@ const handleOpenDialog = (item: foodItem) => {
   };
 
 return (
-    // <Box p={2}>
-    //   Search
-    //   <TextField
-    //     fullWidth
-    //     label="Tìm kiếm món ăn"
-    //     variant="outlined"
-    //     value={search}
-    //     onChange={handleSearchChange}
-    //     sx={{ mb: 2 }}
-    //   />
-    // </Box>
-
+    <>
+    <HeaderPage/>
     <Box className="food-menu-container">
         <Button
             variant="contained"
@@ -92,5 +83,6 @@ return (
             ))}
         </Grid>
     </Box>
+    </>
 );
 }

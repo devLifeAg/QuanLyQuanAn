@@ -25,6 +25,7 @@ export const HeaderPage = () => {
   };
 
   return (
+    <>
     <div className='header'>
       <Button className='menuButton' onClick={handleMenuOpen}> 
         <MenuIcon className='menuIcon' fontSize={'medium'} /> 
@@ -49,5 +50,6 @@ export const HeaderPage = () => {
         <Search className='searchIcon' fontSize={'medium'}/>
       </Button>
     </div>
+    </>
   );
 };
