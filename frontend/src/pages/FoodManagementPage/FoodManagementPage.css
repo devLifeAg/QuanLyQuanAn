@@ -1,0 +1,49 @@
+/* FoodMenu.css */
+.food-menu-container {
+    padding: 16px;
+}
+  
+.food-menu-search {
+    width: 100%;
+    margin-bottom: 16px;
+}
+  
+.addFood {
+    margin-bottom: 16px;
+    padding-bottom: 16px ;
+}
+
+.grid{
+    padding-top: 20px;
+}
+
+.food-item-card {
+    border-radius: 8px;
+    transition: transform 0.2s ease-in-out;
+}
+  
+.food-item-card:hover {
+    transform: scale(1.10);
+}
+  
+.food-item-img {
+    height: 140px;
+    object-fit: cover;
+}
+  
+.food-item-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+}
+.edit{
+    
+}
+
+.delete{
+
+}
+  
+.off{
+
+}

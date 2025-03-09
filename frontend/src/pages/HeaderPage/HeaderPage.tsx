@@ -3,7 +3,7 @@ import { Search } from '@mui/icons-material';
 import { Menu as MenuIcon } from '@mui/icons-material';
 import { useState } from 'react';
 import './HeaderPage.css';
-import { useNavigate } from 'react-router-dom'; // Thêm dòng này
+import { useNavigate } from 'react-router-dom';
 
 export const HeaderPage = () => {
   const [search, setSearch] = useState("");
@@ -15,7 +15,6 @@ export const HeaderPage = () => {
     setAnchorEl(event.currentTarget);
   };
   
-
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
@@ -28,21 +27,26 @@ export const HeaderPage = () => {
   return (
     <div className='header'>
       <Button className='menuButton' onClick={handleMenuOpen}> 
-        <MenuIcon fontSize={'medium'} /> 
+        <MenuIcon className='menuIcon' fontSize={'medium'} /> 
       </Button>
+
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
-        <MenuItem onClick={() => handleNavigate('./pages/OrderPage/OrderPage')}>Đặt hàng</MenuItem>
+        <MenuItem onClick={() => handleNavigate('/order')}>Đặt hàng</MenuItem>
         <MenuItem onClick={() => handleNavigate('/payment')}>Thanh toán</MenuItem>
         <MenuItem onClick={() => handleNavigate('/about')}>Giới thiệu</MenuItem>
       </Menu>
-      <h1>TocoToco</h1>
+
+      <div className='logoTitle'>
+        <h1 className='headerTitle'>Quán ăn ngon lành</h1>
+      </div>
+
       {searchOpen && (
-        <input className="searchInput" placeholder="Tìm kiếm món ăn..." value={search}
+        <input className='searchInput' placeholder='Tìm kiếm món ăn...' value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
       )}
-      <Button className="searchButton" onClick={() => setSearchOpen(!searchOpen)}>
-        <Search fontSize={'medium'} />
+      <Button className='searchButton' onClick={() => setSearchOpen(!searchOpen)}>
+        <Search className='searchIcon' fontSize={'medium'}/>
       </Button>
     </div>
   );
