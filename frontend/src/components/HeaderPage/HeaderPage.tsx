@@ -45,6 +45,11 @@ export const HeaderPage = () => {
           </Box>
 
           <List>
+          <ListItem disablePadding>
+              <ListItemButton onClick={() => handleNavigate('/  ')}>
+                <ListItemText primary="Trang Chủ" />
+              </ListItemButton>
+            </ListItem>
             <ListItem disablePadding>
               <ListItemButton onClick={() => handleNavigate('/TTQ')}>
                 <ListItemText primary="Thông Tin Quán" />
@@ -58,11 +63,6 @@ export const HeaderPage = () => {
             <ListItem disablePadding>
               <ListItemButton onClick={() => handleNavigate('/QLTK')}>
                 <ListItemText primary="Tài Khoản" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => handleNavigate('/QLHD')}>
-                <ListItemText primary="Hóa Đơn" />
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
