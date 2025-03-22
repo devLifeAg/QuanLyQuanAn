@@ -43,5 +43,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(QuanLyHoaDon::class, 'ct_id', 'ct_id'); //class, foreignkey, localkey
     }
+    
 
 }

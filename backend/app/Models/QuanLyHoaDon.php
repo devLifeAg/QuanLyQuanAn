@@ -17,9 +17,9 @@ class QuanLyHoaDon extends Model
         'hd_ngaygio',
         'hd_tongtien',
         'hd_pttt',
+        'hd_daThanhToan',
         'b_id',
         'u_id',
-        'kc_id'
     ];
 
     /**
@@ -38,13 +38,13 @@ class QuanLyHoaDon extends Model
         return $this->belongsTo(User::class, 'u_id', 'u_id');
     }
 
-    /**
-     * Quan hệ với bảng `quanlyketca`
-     */
-    public function quanLyKetCa()
-    {
-        return $this->belongsTo(QuanLyKetCa::class, 'kc_id', 'kc_id');
-    }
+    // /**
+    //  * Quan hệ với bảng `quanlyketca`
+    //  */
+    // public function quanLyKetCa()
+    // {
+    //     return $this->belongsTo(QuanLyKetCa::class, 'kc_id', 'kc_id');
+    // }
 
     public function dsChiTietHoaDon()
     {

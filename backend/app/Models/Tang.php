@@ -20,4 +20,9 @@ class Tang extends Model
     {
         return $this->hasMany(Ban::class, 'b_id', 'b_id'); //class, foreignkey, localkey
     }
+    // ✅ Khai báo relationship: 1 Tầng có nhiều Bàn
+    public function bans()
+    {
+        return $this->hasMany(Ban::class, 't_id', 't_id');
+    }
 }

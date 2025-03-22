@@ -26,5 +26,12 @@ class DatabaseSeeder extends Seeder
                 'u_name' => $username,
             ]);
         }
+        $this->call([
+            TangSeeder::class,
+            BanSeeder::class,
+            PhanLoaiMonAnSeeder::class,
+            MonAnSeeder::class,
+        ]);
     }
+
 }

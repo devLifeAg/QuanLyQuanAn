@@ -12,13 +12,14 @@ class Ban extends Model
     protected $primaryKey = 'b_id';
 
     protected $fillable = [
-        'b_tenbang',
+        'b_tenban',
         'b_trangthai',
         't_id',
     ];
 
-    public function thuoctang()
+    // (tùy chọn) Nếu cần dùng quan hệ ngược
+    public function tang()
     {
-        return $this->belongsTo(Tang::class, 't_id', 't_id'); //class, foreignkey, localkey
+        return $this->belongsTo(Tang::class, 't_id', 't_id');
     }
 }
