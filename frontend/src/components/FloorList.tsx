@@ -5,7 +5,7 @@ const FloorList = ({ floors }) => {
         {floors.map((floor) => (
           <button
             key={floor.id}
-            className="px-6 py-2 bg-blue-500 text-white rounded-lg whitespace-nowrap hover:bg-blue-600"
+            className="px-6 py-2 bg-blue-500 text-black rounded-lg whitespace-nowrap hover:bg-blue-600"
           >
             {floor.name}
           </button>

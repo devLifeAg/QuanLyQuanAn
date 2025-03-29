@@ -1,100 +1,148 @@
-import { useState } from "react";
-import { Card, CardMedia, CardContent, Typography, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Grid, Box } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Card, CardMedia, CardContent, Typography, Button, Grid, Box } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import './FoodManagementPage.css';
 import { HeaderPage } from '../../components/HeaderPage/HeaderPage';
+import { DeletePage } from "../DeletePage/DeletePage";
+import { OffTheDishPage } from "../OffTheDishPage/OffTheDishPage";
+import { CreatePage } from "../CreatePage/CreatePage";
+import { EditPage } from "../EditPage/EditPage";
+import Revenue from "../Revenue/RevenuePage";
 
-type foodItem = {
-  id: number;
-  name: string;
-  categoryId: number;
-  image: string;
+type FoodItem = {
+  mon_id: number;
+  pl_id: number;
+  mon_tenmon: string;
+  mon_giamon: number;
+  mon_mota: string | null;
+  mon_hinhmon: string;
+  mon_trangthai: number;
 };
 
-// const foodItem = [
-const foodItems: foodItem[] = [
-  { id: 1, name: "Cơm chiên lá é với tôm", categoryId: 1, image: "/anh_mon/com-chien-la-e-voi-tom.jpg" },
-  { id: 2, name: "Rau má", categoryId: 2, image: "/anh_mon/nuoc-rau-ma.jpg" },
-  { id: 3, name: "Bún riêu", categoryId: 3, image: "/anh_mon/bun-rieu.jpg" },
-  { id: 4, name: "Phở", categoryId: 1, image: "/anh_mon/pho.jpg" },
-  { id: 5, name: "Cua lột bơ tỏi", categoryId: 2, image: "/anh_mon/cua-lot-bo-toi.jpg" },
-  { id: 6, name: "Combo khai vị", categoryId: 3, image: "/anh_mon/combo-khai-vi.jpg" },
-  { id: 7, name: "Cơm bò lúc lắc", categoryId: 1, image: "/anh_mon/com-bo-luc-lac.jpg" },
-  { id: 8, name: "Lẩu hải sản", categoryId: 2, image: "/anh_mon/lau-hai-san.jpg" },
-  { id: 9, name: "Gỏi ngó sen tôm thịt", categoryId: 3, image: "/anh_mon/goi-ngo-sen-tom-thit.jpg" },
-  { id: 10, name: "Bún mắm", categoryId: 1, image: "/anh_mon/bun-mam.jpg" },
-  { id: 11, name: "Bún thịt nướng chả giỏ hải sản", categoryId: 2, image: "/anh_mon/bun-thit-nuoc-cha-gio-hai-san.jpg" },
-  { id: 12, name: "Cà ri xanh rau củ chay", categoryId: 3, image: "/anh_mon/ca-ri-xanh-rau-cu-chay.jpg" },
-];
-
 export const FoodManagementPage = () => {
-  const [search, setSearch] = useState("");
-  const [openDialog, setOpenDialog] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<foodItem | null>(null);
+  // const [search, setSearch] = useState("");
+  // const [openDialog, setOpenDialog] = useState(false);
+  const [FoodItem, setFoodItem] = useState<FoodItem[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [openCreate, setOpenCreate] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [openOffTheDish, setOpenOffTheDish] = useState(false);
+  const [selectedMon_id, setSelectedMon_id] = useState<number | null>(null);
+  const [selectedFood, setSelectedFood] = useState<FoodItem | null>(null);
+      
+  // useEffect(() => {
+  //   fetch("https://quanlyquananapi-production.up.railway.app/api/danhsachmonan")
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       if (data.result === 1) {
+  //         const foodList: FoodItem[] = data.monan.map((mon: any) => ({
+  //           mon_id: mon.mon_id,
+  //           pl_id: mon.pl_id,
+  //           mon_tenmon: mon.mon_tenmon,
+  //           mon_giamon: mon.mon_giamon,
+  //           mon_mota: mon.mon_mota,
+  //           mon_hinhmon: `${base_url}/anh_mon/${mon.mon_hinhmon}`, // Thêm base_url vào ảnh
+  //           mon_trangthai: mon.mon_trangthai,
+  //         }));
+  //         setFoodItem(foodList);
+  //       } else {
+  //         console.error("Không thể lấy dữ liệu món ăn");
+  //       }
+  //     })
+  //     .catch((error) => console.error("Lỗi khi gọi API:", error))
+  //     .finally(() => setLoading(false));
+  // }, []);
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
+  const fetchFoodList = () => {
+    fetch("https://quanlyquananapi-production.up.railway.app/api/danhsachmonan")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result === 1) {
+          const foodList: FoodItem[] = data.monan.map((mon: any) => ({
+            mon_id: mon.mon_id,
+            pl_id: mon.pl_id,
+            mon_tenmon: mon.mon_tenmon,
+            mon_giamon: mon.mon_giamon,
+            mon_mota: mon.mon_mota,
+            mon_hinhmon: mon.mon_hinhmon, 
+            mon_trangthai: mon.mon_trangthai,
+          }));
+          setFoodItem(foodList);
+        } else {
+          console.error("Không thể lấy dữ liệu món ăn");
+        }
+      })
+      .catch((error) => console.error("Lỗi khi gọi API:", error))
+      .finally(() => setLoading(false));
   };
-
-  const handleOpenDialog = (item: foodItem) => {
-    setSelectedItem(item);
-    setOpenDialog(true);
-  };
-
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
-    setSelectedItem(null);
-  };
+  useEffect(() => {
+    fetchFoodList();
+  },
+  []);
 
   return (
     <>
       <HeaderPage />
       <Box className="container mx-auto mb-8">
-        <Button
-          variant="contained"
-          color="primary"
-          startIcon={<AddIcon />}
-          className="!mb-6 !mt-6"
-        >
+        <Button variant="contained" color="primary" startIcon={<AddIcon />} className="!mb-6 !mt-6" onClick={() => setOpenCreate(true)}>
           Thêm món ăn
         </Button>
 
-        <Grid container spacing={2}>
-          {foodItems.map((item) => (
-            <Grid item xs={6} md={3} lg={2} key={item.id}>
-              <Card className="food-item-card">
-                <CardMedia component="img" image={item.image} alt={item.name} className="food-item-img" />
-                <CardContent>
-                  {/* Giới hạn tiêu đề chỉ 1 dòng */}
-                  <Typography
-                    variant="h6"
-                    sx={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", textAlign: "center" }}
-                  >
-                    {item.name}
-                  </Typography>
+        {loading ? (
+          <Box display="flex" justifyContent="center" alignItems="center" height="50vh">
+            <div className="loader"></div>
+          </Box>
+        ) : (
+          <Grid container spacing={2}>
+            {FoodItem.map((item) => (
+              <Grid item xs={6} md={3} lg={2} key={item.mon_id}>
+                <Card className="food-item-card">
+                  <CardMedia component="img" image={item.mon_hinhmon} alt={item.mon_tenmon} className="food-item-img" />
+                  <CardContent>
+                    <Typography
+                      variant="h6"
+                      sx={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", textAlign: "center" }}
+                    >
+                      {item.mon_tenmon}
+                    </Typography>
 
-                  {/* Căn giữa các icon trong button */}
-                  <Box display="flex" justifyContent="space-between" gap={1} mt={2}>
-                    <Button variant="contained" color="primary" sx={{ minWidth: "40px", display: "flex", justifyContent: "center" }}>
-                      <EditIcon />
-                    </Button>
-                    <Button variant="contained" color="secondary" sx={{ minWidth: "40px", display: "flex", justifyContent: "center" }}>
-                      <DeleteIcon />
-                    </Button>
-                    <Button variant="contained" color="warning" sx={{ minWidth: "40px", display: "flex", justifyContent: "center" }}>
-                      <VisibilityOffIcon />
-                    </Button>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
+                    <Typography variant="body2" color="textSecondary" align="center">
+                      {item.mon_giamon.toLocaleString()} VND
+                    </Typography>
+
+                    <Box display="flex" justifyContent="space-between" gap={1} mt={2}>
+                      <Button variant="contained" color="primary" sx={{ minWidth: "40px" }} onClick={() => {console.log("Món ăn được chọn để chỉnh sửa:", item); setSelectedFood(item); setOpenEdit(true);}}>
+                        <EditIcon />
+                      </Button>
+                      <Button variant="contained" color="secondary" sx={{ minWidth: "40px" }} onClick={() => {setSelectedMon_id(item.mon_id); setOpenDelete(true);}}>
+                        <DeleteIcon />
+                      </Button>
+                      <Button variant="contained" color={item.mon_trangthai === 1 ? "success" : "warning"} sx={{ minWidth: "40px" }} onClick={() => {setSelectedMon_id(item.mon_id); setOpenOffTheDish(true);}}>
+                      {item.mon_trangthai === 1 ? <VisibilityIcon/> : <VisibilityOffIcon />}
+                      </Button>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        )}
+        <CreatePage openCreate={openCreate} onClose={() => setOpenCreate(false)} onAdd={(newFood) => setFoodItem((prev) => [...prev, newFood])}/>
+        <EditPage openEdit={openEdit} setOpenEdit={setOpenEdit} fetchFoods={fetchFoodList} selectedFood={selectedFood}/>
+        <DeletePage openDelete={openDelete} setOpenDelete={setOpenDelete} mon_id={selectedMon_id} onDeleteSuccess={() => {fetchFoodList();}}/>
+        <OffTheDishPage openOffTheDish={openOffTheDish} setOpenOffTheDish={setOpenOffTheDish}
+          mon_id={selectedMon_id} mon_trangthai={FoodItem.find(item => item.mon_id === selectedMon_id)?.mon_trangthai || 0} 
+          onOffSuccess={() => {fetchFoodList();}}/>
       </Box>
 
     </>
   )
 }
+
+
